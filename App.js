@@ -13,16 +13,50 @@ export default class HomeActivity extends Component {
 
   buttonClickListener = () =>{
       const { TextInputValue }  = this.state ;
-      Torch.switchState(true);
-      Alert.alert(TextInputValue);
+      var message = TextInputValue.toUpperCase();
+      var morse_dict = { 'A':'.-', 'B':'-...',
+         'C':'-.-.', 'D':'-..', 'E':'.',
+         'F':'..-.', 'G':'--.', 'H':'....',
+         'I':'..', 'J':'.---', 'K':'-.-',
+         'L':'.-..', 'M':'--', 'N':'-.',
+         'O':'---', 'P':'.--.', 'Q':'--.-',
+         'R':'.-.', 'S':'...', 'T':'-',
+         'U':'..-', 'V':'...-', 'W':'.--',
+         'X':'-..-', 'Y':'-.--', 'Z':'--..',
+         '1':'.----', '2':'..---', '3':'...--',
+         '4':'....-', '5':'.....', '6':'-....',
+         '7':'--...', '8':'---..', '9':'----.',
+         '0':'-----', ',':'--..--', '.':'.-.-.-',
+         '?':'..--..', '/':'-..-.', '-':'-....-',
+         '(':'-.--.', ')':'-.--.-'
+      };
+      var cipher = '';
+      var i;
+      for (i = 0; i < message.length; i++) {
+        if(message[i] != ' ') {
+           cipher += morse_dict[message[i]] + ' ';
+        }
+        else {
+           cipher += ' ';
+        }
+      }
+      Alert.alert(cipher);
+      // Torch.switchState(true);
+      // Torch.switchState(false);
+      // setTimeout(function(){Alert.alert(TextInputValue[i])},2000);
   }
 
   render() {
     return (
       <>
       <View style={styles.container}>
+      <Button
+        onPress={this.buttonClickListener}
+        title="Enter"
+        color="#00B0FF"
+      />
       <Text>
-      Text to morse
+      Text to morse.
       </Text>
         <TextInput
           multiline={true}
@@ -32,11 +66,7 @@ export default class HomeActivity extends Component {
           onChangeText={TextInputValue => this.setState({TextInputValue})}
           underlineColorAndroid="transparent"
         />
-        <Button
-          onPress={this.buttonClickListener}
-          title="Enter"
-          color="#00B0FF"
-        />
+
       </View>
       </>
     );
