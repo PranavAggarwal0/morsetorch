@@ -37,13 +37,41 @@ export default class HomeActivity extends Component {
            cipher += morse_dict[message[i]] + ' ';
         }
         else {
-           cipher += ' ';
+           cipher += '/';
         }
       }
-      Alert.alert(cipher);
-      // Torch.switchState(true);
-      // Torch.switchState(false);
-      // setTimeout(function(){Alert.alert(TextInputValue[i])},2000);
+      var j = 0;
+      function myLoop() {
+        if(cipher[j] == '.') {
+          Torch.switchState(true);
+          setTimeout(function(){Torch.switchState(false)},300);
+          j++;
+          if(j < cipher.length) {
+            setTimeout(function(){myLoop()},300)
+          }
+        }
+        else if(cipher[j] == '-') {
+          Torch.switchState(true);
+          setTimeout(function(){Torch.switchState(false)},900);
+          j++;
+          if(j < cipher.length) {
+            setTimeout(function(){myLoop()},300);
+          }
+        }
+        else if(cipher[j] == ' ') {
+          j++;
+          if(j<cipher.length) {
+            setTimeout(function(){myLoop()},900);
+          }
+        }
+        else {
+          j++;
+          if(j<cipher.length) {
+            setTimeout(function(){myLoop()},2100);
+          }
+        }
+      }
+      myLoop();
   }
 
   render() {
