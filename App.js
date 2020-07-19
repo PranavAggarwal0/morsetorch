@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View, TextInput, Button, Alert } from "react-native";
+import { Platform, StyleSheet, Text, View, TextInput, Button, Alert, Keyboard } from "react-native";
 import Torch from 'react-native-torch';
 
 export default class HomeActivity extends Component {
@@ -12,7 +12,12 @@ export default class HomeActivity extends Component {
   }
 
   buttonClickListener = () =>{
+      Keyboard.dismiss()
       const { TextInputValue }  = this.state ;
+      if(!(/^[ A-Za-z0-9(),.?/-]*$/.test(TextInputValue))) {
+          Alert.alert('Invalid characters');
+          return;
+      }
       var message = TextInputValue.toUpperCase();
       var morse_dict = { 'A':'.-', 'B':'-...',
          'C':'-.-.', 'D':'-..', 'E':'.',
@@ -72,46 +77,49 @@ export default class HomeActivity extends Component {
         }
       }
       myLoop();
+      Alert.alert("Converted to Morse\n"+cipher);
   }
 
   render() {
     return (
-      <>
       <View style={styles.container}>
-      <Button
-        onPress={this.buttonClickListener}
-        title="Enter"
-        color="#00B0FF"
-      />
-      <Text>
-      Text to morse.
-      </Text>
-        <TextInput
-          multiline={true}
-          numberOfLines={100}
-          style={{height: 245,width: "95%",borderColor: "gray",borderWidth: 2}}
-          placeholder=" Enter Your Text"
-          onChangeText={TextInputValue => this.setState({TextInputValue})}
-          underlineColorAndroid="transparent"
-        />
-
+        <View style={styles.content}>
+          <Text style={{fontSize:30,fontWeight: 'bold'}}>
+            morseTorch{"\n"}
+          </Text>
+          <Text style={{fontSize:20}}>
+            Text to Morse
+          </Text>
+          <TextInput
+            multiline={true}
+            numberOfLines={100}
+            style={{height: 245,width: "95%",borderColor: "black",borderWidth: 2}}
+            placeholder=" Enter Your Text"
+            onChangeText={TextInputValue => this.setState({TextInputValue})}
+            underlineColorAndroid="transparent"
+          />
+          <Button
+            onPress={this.buttonClickListener}
+            title="Enter"
+            color="#00B0FF"
+          />
+        </View>
       </View>
-      </>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
+  content: {
+    marginTop: 70,
+    flexDirection: "column",
+    justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: "#e5e5e5"
+    backgroundColor: "#FEC8D8"
   },
-  headerText: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10,
-    fontWeight: "bold"
+  container: {
+    flexDirection: "column",
+    flex: 1,
+    backgroundColor: "#FEC8D8"
   }
 });
