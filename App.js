@@ -52,7 +52,7 @@ export default class HomeActivity extends Component {
           setTimeout(function(){Torch.switchState(false)},300);
           j++;
           if(j < cipher.length) {
-            setTimeout(function(){myLoop()},300)
+            setTimeout(myLoop,1000)
           }
         }
         else if(cipher[j] == '-') {
@@ -60,19 +60,19 @@ export default class HomeActivity extends Component {
           setTimeout(function(){Torch.switchState(false)},900);
           j++;
           if(j < cipher.length) {
-            setTimeout(function(){myLoop()},300);
+            setTimeout(myLoop,1000);
           }
         }
         else if(cipher[j] == ' ') {
           j++;
           if(j<cipher.length) {
-            setTimeout(function(){myLoop()},900);
+            setTimeout(myLoop,2000);
           }
         }
         else {
           j++;
           if(j<cipher.length) {
-            setTimeout(function(){myLoop()},2100);
+            setTimeout(myLoop,1000);
           }
         }
       }
@@ -101,7 +101,7 @@ export default class HomeActivity extends Component {
           <Button
             onPress={this.buttonClickListener}
             title="Enter"
-            color="#00B0FF"
+            color="#000000"
           />
         </View>
       </View>
@@ -115,11 +115,11 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: "#FEC8D8"
+    backgroundColor: "#98FB98"
   },
   container: {
     flexDirection: "column",
     flex: 1,
-    backgroundColor: "#FEC8D8"
+    backgroundColor: "#98FB98"
   }
 });
