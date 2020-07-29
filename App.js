@@ -18,6 +18,9 @@ export default class HomeActivity extends Component {
           Alert.alert('Invalid characters');
           return;
       }
+      if((/^[ ]*$/.test(TextInputValue)) || TextInputValue == "") {
+          return;
+      }
       var message = TextInputValue.toUpperCase();
       var morse_dict = { 'A':'.-', 'B':'-...',
          'C':'-.-.', 'D':'-..', 'E':'.',
@@ -42,7 +45,7 @@ export default class HomeActivity extends Component {
            cipher += morse_dict[message[i]] + ' ';
         }
         else {
-           cipher += '/';
+           cipher += '!';
         }
       }
       var j = 0;
@@ -77,7 +80,8 @@ export default class HomeActivity extends Component {
         }
       }
       myLoop();
-      Alert.alert("Converted to Morse\n"+cipher);
+      let str = cipher.replace(/!/g, ' ');
+      Alert.alert("Converted to Morse\n"+str);
   }
 
   render() {
